@@ -2,4 +2,8 @@
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  site: 'https://eluellenml.github.io',
+  base: '/turing-site',
+  output: 'static'
+});

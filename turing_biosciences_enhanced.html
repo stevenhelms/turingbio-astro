@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turing Biosciences - Reprogramming Immunity with Metabolites</title>
+    <meta name="description" content="Computational biology platform for systematic disease discovery and therapeutic development using multi-omics integration.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+            font-weight: 400;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #2563eb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #f0f0f0;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #1a1a1a;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #2563eb;
+            transition: width 0.2s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: #1a1a1a;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 8rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: #1a1a1a;
+            letter-spacing: -0.03em;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .hero-content .accent {
+            color: #2563eb;
+            font-weight: 400;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.8s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-primary {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 1rem 2rem;
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .btn-secondary:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-visual {
+            background: rgba(248, 250, 252, 0.8);
+            border-radius: 16px;
+            padding: 4rem 3rem;
+            text-align: center;
+            border: 1px solid rgba(240, 240, 240, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+
+        .data-visualization {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .data-point {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 12px;
+            background: white;
+            transition: transform 0.3s ease;
+        }
+
+        .data-point:hover {
+            transform: translateY(-5px);
+        }
+
+        .data-point .number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #2563eb;
+            display: block;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .data-point .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Enhanced animations for other sections */
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Validation Section */
+        .validation {
+            padding: 8rem 0;
+            background: white;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .validation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            margin-bottom: 6rem;
+        }
+
+        .validation-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2563eb, #1d4ed8);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #2563eb;
+            display: block;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-label {
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .accuracy-showcase {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accuracy-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .disease-accuracy {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .disease-accuracy:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .disease-name {
+            font-weight: 500;
+        }
+
+        .accuracy-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .bar-fill {
+            height: 8px;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            border-radius: 4px;
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accuracy-percent {
+            font-weight: 600;
+            min-width: 50px;
+        }
+
+        /* Statistical Validation Styles */
+        .statistical-validation {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .metric-table {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .metric-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            gap: 0.75rem;
+        }
+
+        .metric-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            min-width: 70px;
+            font-weight: 500;
+        }
+
+        .metric-bar {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #e2e8f0;
+            border-radius: 4px;
+            height: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .metric-value {
+            position: absolute;
+            right: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Problem-Solution Visual */
+        .problem-solution {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            position: relative;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .comparison-side {
+            text-align: center;
+        }
+
+        .comparison-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .traditional {
+            color: #dc2626;
+        }
+
+        .turing {
+            color: #059669;
+        }
+
+        .stat-boxes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-box {
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .stat-box:hover::before {
+            left: 100%;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-3px);
+        }
+
+        .traditional .stat-box {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border-color: #fecaca;
+        }
+
+        .traditional .stat-box:hover {
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.15);
+        }
+
+        .turing .stat-box {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border-color: #a7f3d0;
+        }
+
+        .turing .stat-box:hover {
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.15);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Enhanced Pipeline Section */
+        .pipeline {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            position: relative;
+        }
+
+        .pipeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .pipeline h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            text-align: center;
+            color: white;
+        }
+
+        .pipeline .section-header p {
+            color: white;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .pipeline-table {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .pipeline-title-header {
+            background: rgba(59, 130, 246, 0.15);
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .pipeline-title-header h3 {
+            color: #60a5fa;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .pipeline-title-header p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0.5rem 0 0 0;
+            font-size: 0.9rem;
+        }
+
+        .pipeline-row {
+            display: grid;
+            grid-template-columns: 280px 1fr 120px 100px 100px;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.3s ease;
+            gap: 1rem;
+        }
+
+        .pipeline-row:hover {
+            background: rgba(59, 130, 246, 0.08);
+            transform: translateX(5px);
+        }
+
+        .indication-name {
+            font-weight: 500;
+            color: white;
+        }
+
+        .progress-bar-container {
+            position: relative;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #3b82f6 50%, #6366f1 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-25 { width: 25%; }
+        .progress-40 { width: 40%; }
+        .progress-60 { width: 60%; }
+        .progress-75 { width: 75%; }
+        .progress-90 { width: 90%; }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .status-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .status-approved {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-pending {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .status-invitro {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .status-available {
+            background: rgba(99, 102, 241, 0.2);
+            color: #6366f1;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .column-header {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #60a5fa;
+            text-align: center;
+            padding: 1rem 0.5rem;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .column-header.progress-col {
+            text-align: left;
+            padding-left: 1.5rem;
+        }
+
+        .category-header {
+            background: rgba(59, 130, 246, 0.1);
+            font-weight: 600;
+            color: #60a5fa;
+            grid-column: 1 / -1;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .pipeline-summary {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .pipeline-summary h4 {
+            color: #10b981;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .pipeline-summary p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: #999;
+            padding: 4rem 0 2rem;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            line-height: 1.7;
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section a {
+            color: #999;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: all 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: #2563eb;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid, .validation-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .pipeline-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                text-align: left;
+            }
+
+            .pipeline-row > div {
+                padding: 0.5rem 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .validation-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-boxes {
+                grid-template-columns: 1fr;
+            }
+
+            .data-visualization {
+                grid-template-columns: 1fr;
+            }
+
+            .scroll-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        /* Custom cursor for interactive elements */
+        .btn-primary, .btn-secondary, .nav-links a, .logo, .scroll-to-top {
+            cursor: pointer;
+        }
+
+        /* Focus states for accessibility */
+        .btn-primary:focus,
+        .btn-secondary:focus,
+        .nav-links a:focus {
+            outline: 2px solid #2563eb;
+            outline-offset: 2px;
+        }
+
+        /* Reduced motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <header id="header">
+        <nav class="container">
+            <a href="#" class="logo" aria-label="Turing Biosciences Home">
+                <svg width="320" height="70" viewBox="0 0 320 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Network nodes -->
+                    <circle cx="15" cy="20" r="4" fill="#6794EF"/>
+                    <circle cx="30" cy="14" r="4" fill="#6794EF"/>
+                    <circle cx="25" cy="35" r="4" fill="#6794EF"/>
+                    <circle cx="10" cy="42" r="4" fill="#6794EF"/>
+                    
+                    <!-- Connecting lines -->
+                    <line x1="15" y1="20" x2="30" y2="14" stroke="#6794EF" stroke-width="2.5"/>
+                    <line x1="15" y1="20" x2="25" y2="35" stroke="#6794EF" stroke-width="2.5"/>
+                    <line x1="15" y1="20" x2="10" y2="42" stroke="#6794EF" stroke-width="2.5"/>
+                    <line x1="30" y1="14" x2="25" y2="35" stroke="#6794EF" stroke-width="2.5"/>
+                    
+                    <!-- TURING text -->
+                    <text x="55" y="32" font-family="Inter,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="28" font-weight="600" fill="#6794EF">TURING</text>
+                    
+                    <!-- BIOSCIENCES text -->
+                    <text x="55" y="50" font-family="Inter,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="400" fill="#9CA3AF" letter-spacing="1px">BIOSCIENCES</text>
+                </svg>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#validation">Validation</a></li>
+                <li><a href="#pipeline">Pipeline</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-btn" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <h1>Reprogramming the Immune System with <span class="accent">Metabolites</span></h1>
+                        <h2>Computational Biology for Disease Discovery</h2>
+                        <p>Unlike traditional genomics approaches that target single data types, Nexus™ integrates genomics, proteomics, metabolomics, and microbiome data to discover immunometabolic intervention points.</p>
+                        <p>Our multi-omics platform identifies metabolites that reprogram immune function across diseases - transforming therapeutic discovery from years and billions to weeks and thousands. We already have a 68-asset pipeline, two FDA designation approvals, and active licensing negotiations.</p>
+                        <div class="hero-actions">
+                            <a href="#validation" class="btn-primary">View Validated Results</a>
+                            <a href="#pipeline" class="btn-secondary">Platform Pipeline</a>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="data-visualization">
+                            <div class="data-point">
+                                <span class="number">68</span>
+                                <span class="label">Assets Discovered</span>
+                            </div>
+                            <div class="data-point">
+                                <span class="number">2</span>
+                                <span class="label">FDA Approvals</span>
+                            </div>
+                            <div class="data-point">
+                                <span class="number">10</span>
+                                <span class="label">Day Discovery</span>
+                            </div>
+                        </div>
+                        <svg width="100%" height="350" viewBox="0 0 700 350" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 8px;">
+                            <defs>
+                                <linearGradient id="metabolomicsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="genomicsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="microbiomeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#c084fc;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="proteomicsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#db2777;stop-opacity:1" />
+                                </linearGradient>
+                                
+                                <filter id="shadow">
+                                    <feDropShadow dx="3" dy="6" stdDeviation="3" flood-opacity="0.2"/>
+                                </filter>
+                                
+                                <!-- Text shadow filter for better readability -->
+                                <filter id="textShadow">
+                                    <feDropShadow dx="1" dy="1" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
+                                </filter>
+                            </defs>
+
+                            <!-- Title -->
+                            <text x="350" y="30" text-anchor="middle" fill="#1e293b" font-size="20" font-weight="600">Multi-Omics Platform</text>
+
+                            <!-- Left: Stacked Omics Layers -->
+                            <g transform="translate(80, 80)">
+                                
+                                <!-- Metabolomics (top) -->
+                                <g transform="translate(0, 0)">
+                                    <!-- Top face -->
+                                    <path d="M 0 20 L 30 0 L 200 0 L 170 20 Z" fill="url(#metabolomicsGrad)" filter="url(#shadow)"/>
+                                    <!-- Front face -->
+                                    <path d="M 0 20 L 170 20 L 170 50 L 0 50 Z" fill="url(#metabolomicsGrad)" opacity="0.8"/>
+                                    <!-- Right face -->
+                                    <path d="M 170 20 L 200 0 L 200 30 L 170 50 Z" fill="#059669" opacity="0.6"/>
+                                </g>
+                                
+                                <!-- Genomics -->
+                                <g transform="translate(0, 40)">
+                                    <path d="M 0 20 L 30 0 L 200 0 L 170 20 Z" fill="url(#genomicsGrad)" filter="url(#shadow)"/>
+                                    <path d="M 0 20 L 170 20 L 170 50 L 0 50 Z" fill="url(#genomicsGrad)" opacity="0.8"/>
+                                    <path d="M 170 20 L 200 0 L 200 30 L 170 50 Z" fill="#1d4ed8" opacity="0.6"/>
+                                </g>
+                                
+                                <!-- Microbiome -->
+                                <g transform="translate(0, 80)">
+                                    <path d="M 0 20 L 30 0 L 200 0 L 170 20 Z" fill="url(#microbiomeGrad)" filter="url(#shadow)"/>
+                                    <path d="M 0 20 L 170 20 L 170 50 L 0 50 Z" fill="url(#microbiomeGrad)" opacity="0.8"/>
+                                    <path d="M 170 20 L 200 0 L 200 30 L 170 50 Z" fill="#a855f7" opacity="0.6"/>
+                                </g>
+                                
+                                <!-- Proteomic Interactome -->
+                                <g transform="translate(0, 120)">
+                                    <path d="M 0 20 L 30 0 L 200 0 L 170 20 Z" fill="url(#proteomicsGrad)" filter="url(#shadow)"/>
+                                    <path d="M 0 20 L 170 20 L 170 50 L 0 50 Z" fill="url(#proteomicsGrad)" opacity="0.8"/>
+                                    <path d="M 170 20 L 200 0 L 200 30 L 170 50 Z" fill="#db2777" opacity="0.6"/>
+                                </g>
+                                
+                            </g>
+
+                            <!-- Labels positioned outside the shapes for better readability -->
+                            <g transform="translate(20, 80)">
+                                <text x="0" y="45" fill="#1e293b" font-size="16" font-weight="600">Metabolomics</text>
+                                <text x="0" y="85" fill="#1e293b" font-size="16" font-weight="600">Genomics</text>
+                                <text x="0" y="125" fill="#1e293b" font-size="16" font-weight="600">Microbiome</text>
+                                <text x="0" y="160" fill="#1e293b" font-size="14" font-weight="600">Proteomic</text>
+                                <text x="0" y="175" fill="#1e293b" font-size="14" font-weight="600">Interactome</text>
+                            </g>
+
+                            <!-- Center: Integration Arrow -->
+                            <g transform="translate(320, 180)">
+                                <path d="M 0 0 L 80 0 L 75 -8 M 80 0 L 75 8" stroke="#2563eb" stroke-width="4" fill="none"/>
+                                <text x="40" y="-15" text-anchor="middle" fill="#2563eb" font-size="14" font-weight="600">NEXUS™</text>
+                            </g>
+
+                            <!-- Right: Integrated Output -->
+                            <g transform="translate(430, 130)">
+                                <rect x="0" y="0" width="200" height="100" rx="12" fill="white" stroke="#e2e8f0" stroke-width="2" filter="url(#shadow)"/>
+                                <text x="100" y="30" text-anchor="middle" fill="#1e293b" font-size="18" font-weight="600">Integrated Analysis</text>
+                                <text x="100" y="55" text-anchor="middle" fill="#10b981" font-size="22" font-weight="700">68 Assets</text>
+                                <text x="100" y="80" text-anchor="middle" fill="#2563eb" font-size="16" font-weight="600">2 FDA Approved</text>
+                            </g>
+
+                            <!-- Right side label - positioned further right for clarity -->
+                            <text x="650" y="190" text-anchor="middle" fill="#64748b" font-size="16" font-weight="500" transform="rotate(90, 650, 190)">Therapeutics</text>
+
+                            <!-- Bottom explanation -->
+                            <text x="350" y="310" text-anchor="middle" fill="#64748b" font-size="16" font-weight="500">Systematic integration across biological layers</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="validation fade-in-on-scroll" id="validation">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Validated Predictive Accuracy</h2>
+                    <p>Double-blind validation results demonstrate consistent high-accuracy predictions across multiple rare disease indications. Our confidence in efficacy and safety stems from discovering these targets already working safely in humans through observational studies and retrospective analysis of existing therapeutics.</p>
+                </div>
+                
+                <div class="validation-grid" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: start;">
+                    <!-- Statistical Validation Metrics -->
+                    <div class="statistical-validation">
+                        <h3 style="color: #1e293b; font-size: 1.4rem; font-weight: 600; margin-bottom: 2rem; text-align: center;">Statistical Validation</h3>
+                        <p style="color: #64748b; font-size: 0.9rem; text-align: center; margin-bottom: 2rem;">Examples of double-blind validation & test in confusion matrices</p>
+                        
+                        <div class="metrics-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                            <!-- NEC Metrics -->
+                            <div class="metric-table">
+                                <h4 style="font-size: 0.9rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; text-align: center;">Necrotizing Enterocolitis (NEC)</h4>
+                                <div class="metric-row">
+                                    <span class="metric-label">Precision (PPV)</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 100%; background: #1e40af;"></div>
+                                        <span class="metric-value">100%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">F1</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 97.56%; background: #1e40af;"></div>
+                                        <span class="metric-value">97.56%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Accuracy</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 97.50%; background: #1e40af;"></div>
+                                        <span class="metric-value">97.50%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Specificity</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 100%; background: #3b82f6;"></div>
+                                        <span class="metric-value">100%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Sensitivity</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 95.24%; background: #3b82f6;"></div>
+                                        <span class="metric-value">95.24%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PA Metrics -->
+                            <div class="metric-table">
+                                <h4 style="font-size: 0.9rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; text-align: center;">Propionic Aciduria (PA)</h4>
+                                <div class="metric-row">
+                                    <span class="metric-label">Precision (PPV)</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 100%; background: #1e40af;"></div>
+                                        <span class="metric-value">100%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">F1</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 100%; background: #1e40af;"></div>
+                                        <span class="metric-value">100%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Accuracy</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 100%; background: #1e40af;"></div>
+                                        <span class="metric-value">100%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Specificity</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 100%; background: #3b82f6;"></div>
+                                        <span class="metric-value">100%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Sensitivity</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 100%; background: #3b82f6;"></div>
+                                        <span class="metric-value">100%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="metrics-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <!-- CTLN1 Metrics -->
+                            <div class="metric-table">
+                                <h4 style="font-size: 0.9rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; text-align: center;">Citrullinemia Type 1 (CTLN1)</h4>
+                                <div class="metric-row">
+                                    <span class="metric-label">Precision (PPV)</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 100%; background: #1e40af;"></div>
+                                        <span class="metric-value">100%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">F1</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 98.55%; background: #1e40af;"></div>
+                                        <span class="metric-value">98.55%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Accuracy</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 97.40%; background: #1e40af;"></div>
+                                        <span class="metric-value">97.40%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Specificity</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 100%; background: #3b82f6;"></div>
+                                        <span class="metric-value">100%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Sensitivity</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 97.14%; background: #3b82f6;"></div>
+                                        <span class="metric-value">97.14%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- sJIA Metrics -->
+                            <div class="metric-table">
+                                <h4 style="font-size: 0.9rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; text-align: center;">Systemic Juvenile Arthritis (sJIA)</h4>
+                                <div class="metric-row">
+                                    <span class="metric-label">Precision (PPV)</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 91.67%; background: #1e40af;"></div>
+                                        <span class="metric-value">91.67%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">F1</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 95.65%; background: #1e40af;"></div>
+                                        <span class="metric-value">95.65%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Accuracy</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 95.56%; background: #1e40af;"></div>
+                                        <span class="metric-value">95.56%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Specificity</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 91.30%; background: #3b82f6;"></div>
+                                        <span class="metric-value">91.30%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Sensitivity</span>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" style="width: 100%; background: #3b82f6;"></div>
+                                        <span class="metric-value">100%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AUROC Results -->
+                    <div class="accuracy-showcase">
+                        <div class="accuracy-title">AUROC Validation Results</div>
+                        <div class="disease-accuracy">
+                            <div class="disease-name">Necrotizing Enterocolitis (NEC)</div>
+                            <div class="accuracy-bar">
+                                <div class="bar-fill" style="width: 100%"></div>
+                                <span class="accuracy-percent">100%</span>
+                            </div>
+                        </div>
+                        <div class="disease-accuracy">
+                            <div class="disease-name">Propionic Aciduria (PA)</div>
+                            <div class="accuracy-bar">
+                                <div class="bar-fill" style="width: 100%"></div>
+                                <span class="accuracy-percent">100%</span>
+                            </div>
+                        </div>
+                        <div class="disease-accuracy">
+                            <div class="disease-name">Citrullinemia Type 1 (CTLN1)</div>
+                            <div class="accuracy-bar">
+                                <div class="bar-fill" style="width: 92.32%"></div>
+                                <span class="accuracy-percent">92.32%</span>
+                            </div>
+                        </div>
+                        <div class="disease-accuracy">
+                            <div class="disease-name">Maple Syrup Urine Disease (MSUD)</div>
+                            <div class="accuracy-bar">
+                                <div class="bar-fill" style="width: 99.5%"></div>
+                                <span class="accuracy-percent">99.5%</span>
+                            </div>
+                        </div>
+                        <div class="disease-accuracy">
+                            <div class="disease-name">Phenylketonuria (PKU)</div>
+                            <div class="accuracy-bar">
+                                <div class="bar-fill" style="width: 95.52%"></div>
+                                <span class="accuracy-percent">95.52%</span>
+                            </div>
+                        </div>
+                        <div class="disease-accuracy">
+                            <div class="disease-name">Systemic Juvenile Arthritis (sJIA)</div>
+                            <div class="accuracy-bar">
+                                <div class="bar-fill" style="width: 97.82%"></div>
+                                <span class="accuracy-percent">97.82%</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1.5rem; text-align: center; font-style: italic; color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">
+                            Turing, RPDD Application, FDA OOPD 2024
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="problem-solution fade-in-on-scroll">
+            <div class="container">
+                <div class="section-header">
+                    <h2>From Single Assets to System-Wide Solutions</h2>
+                    <p>Nexus™: First platform to systematically reprogram immunity across thousands of diseases</p>
+                </div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-side traditional">
+                        <div class="comparison-title">Individual Drugs</div>
+                        <div class="stat-boxes">
+                            <div class="stat-box">
+                                <span class="stat-value">One Disease</span>
+                                <span class="stat-description">limited market, narrow focus</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">Start from Scratch</span>
+                                <span class="stat-description">reinvent for each indication</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">Human Medicine Only</span>
+                                <span class="stat-description">species-specific approach</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">10+ Years, $3.5B</span>
+                                <span class="stat-description">unsustainable economics</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-side turing">
+                        <div class="comparison-title">Platform Approach</div>
+                        <div class="stat-boxes">
+                            <div class="stat-box">
+                                <span class="stat-value">Many Diseases</span>
+                                <span class="stat-description">systematic discovery across conditions</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">Build on Success</span>
+                                <span class="stat-description">compound learning effects</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">All Species</span>
+                                <span class="stat-description">universal biological principles</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-value">Weeks, $3M</span>
+                                <span class="stat-description">scalable platform economics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(37, 99, 235, 0.1); border-radius: 12px;">
+                    <p style="font-size: 1.2rem; color: #2563eb; font-weight: 500;">We own the infrastructure that makes biology programmable</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pipeline fade-in-on-scroll" id="pipeline">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Available Therapeutic & Diagnostic Assets by Disease</h2>
+                    <p>68 therapeutic and diagnostic assets across 7 major disease categories</p>
+                </div>
+                
+                <div class="pipeline-table">
+                    <div class="pipeline-title-header">
+                        <h3>Therapeutic & Diagnostic Assets</h3>
+                        <p>Real-time development status across disease categories</p>
+                    </div>
+                    <div class="pipeline-row column-header">
+                        <div>INDICATION</div>
+                        <div class="progress-col">DEVELOPMENT PROGRESS</div>
+                        <div>FDA STATUS</div>
+                        <div>THERAPEUTIC</div>
+                        <div>DIAGNOSTIC</div>
+                    </div>
+
+                    <!-- Neonatal/Pediatric -->
+                    <div class="pipeline-row category-header">
+                        <div>NEONATAL/PEDIATRIC</div>
+                    </div>
+                    
+                    <div class="pipeline-row">
+                        <div class="indication-name">Necrotizing Enterocolitis (NEC)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-75"></div>
+                        </div>
+                        <div class="status-badge status-approved">RPDD Approved</div>
+                        <div class="status-badge status-invitro">Pre-IND</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Extremely Early-Onset Type 1 Diabetes (EXE-T1D)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-40"></div>
+                        </div>
+                        <div class="status-badge status-pending">In Vitro</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Late Onset Sepsis (LOS)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <!-- Women's Health -->
+                    <div class="pipeline-row category-header">
+                        <div>WOMEN'S HEALTH</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Spontaneous Preterm Birth CST-1</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Spontaneous Preterm Birth CST-2</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Spontaneous Preterm Birth CST-3</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Spontaneous Preterm Birth CST-4a</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Spontaneous Preterm Birth CST-4b</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Spontaneous Preterm Birth CST-5</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <!-- Metabolic Disorders -->
+                    <div class="pipeline-row category-header">
+                        <div>METABOLIC DISORDERS</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Maple Syrup Urine Disease (MSUD)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div class="status-badge status-pending">RPDD Pending</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Phenylketonuria (PKU)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div class="status-badge status-pending">RPDD Pending</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Ornithine Transcarbamylase (OTC) Deficiency</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div class="status-badge status-pending">RPDD Pending</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Methylmalonic Acidemia (MMA)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div class="status-badge status-pending">RPDD Pending</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Citrullinemia (CTLN-1)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div class="status-badge status-pending">RPDD Pending</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Glutaric Aciduria Type 1</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div class="status-badge status-pending">RPDD Pending</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Argininemia</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div class="status-badge status-pending">RPDD Pending</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Propionic Acidemia (PA)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div class="status-badge status-pending">RPDD Pending</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Adrenoleukodystrophy (ALD)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div class="status-badge status-pending">RPDD Pending</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">3-MCC Deficiency</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div class="status-badge status-pending">RPDD Pending</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <!-- Infectious Disease -->
+                    <div class="pipeline-row category-header">
+                        <div>INFECTIOUS DISEASE</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Chikungunya Virus</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Chagas Disease</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">African Sleeping Sickness</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Leprosy</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">River Blindness</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">COVID-19</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <!-- Inflammatory/Autoimmune -->
+                    <div class="pipeline-row category-header">
+                        <div>INFLAMMATORY/AUTOIMMUNE</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Systemic Juvenile Idiopathic Arthritis (sJIA)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-40"></div>
+                        </div>
+                        <div class="status-badge status-approved">RPDD Approved</div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Crohn's Disease</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Ulcerative Colitis</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <!-- Oncology -->
+                    <div class="pipeline-row category-header">
+                        <div>ONCOLOGY</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Colorectal Cancer</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Gastric Cancer</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <!-- Neurological -->
+                    <div class="pipeline-row category-header">
+                        <div>NEUROLOGICAL</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Multisystem Proteinopathy 1 (MSP-1)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Childhood Disintegrative Disorder (CDD)</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Parkinson's Disease*</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Autism Spectrum Disorder*</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div class="status-badge status-approved">Available</div>
+                    </div>
+
+                    <!-- Other -->
+                    <div class="pipeline-row category-header">
+                        <div>OTHER</div>
+                    </div>
+
+                    <div class="pipeline-row">
+                        <div class="indication-name">Longevity/Anti-Aging</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar progress-25"></div>
+                        </div>
+                        <div></div>
+                        <div class="status-badge status-available">Available</div>
+                        <div></div>
+                    </div>
+                </div>
+
+                <div class="pipeline-summary">
+                    <h4>Platform Summary</h4>
+                    <p>68 therapeutic assets discovered across 7 major disease categories with 2 FDA rare pediatric disease designations approved</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Turing Biosciences</h3>
+                    <p>Computational biology platform for systematic disease discovery and therapeutic development. Transforming how we understand and treat immune-mediated diseases through multi-omics integration and metabolite-based interventions.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <a href="#validation">Validation Results</a>
+                    <a href="#pipeline">Pipeline Overview</a>
+                    <a href="#" onclick="scrollToTop()">Back to Top</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <a href="#" onclick="showComingSoon('About Us')">About Us</a>
+                    <a href="#" onclick="showComingSoon('News')">News & Updates</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <a href="#" onclick="showComingSoon('Technical Support')">Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Turing Biosciences. All rights reserved. | Nexus™ is a trademark of Turing Biosciences.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loading animation
+        window.addEventListener('load', function() {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+            }, 800);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to top button
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        scrollToTopBtn.addEventListener('click', scrollToTop);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile menu functionality (placeholder for future enhancement)
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        mobileMenuBtn.addEventListener('click', function() {
+            // Mobile menu toggle would go here
+            console.log('Mobile menu clicked - functionality to be added');
+        });
+
+        // Coming soon modal for incomplete links
+        function showComingSoon(feature) {
+            alert(`${feature} coming soon! We're working hard to bring you this feature.`);
+        }
+
+        // Add some interactivity to metric cards
+        document.querySelectorAll('.metric-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-5px) scale(1)';
+            });
+        });
+
+        // Add click animation to buttons
+        document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                let ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = (e.clientX - e.target.offsetLeft) + 'px';
+                ripple.style.top = (e.clientY - e.target.offsetTop) + 'px';
+                ripple.style.width = '20px';
+                ripple.style.height = '20px';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            .btn-primary, .btn-secondary {
+                position: relative;
+                overflow: hidden;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add some dynamic behavior to progress bars
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                const width = bar.style.width || bar.classList.contains('progress-25') ? '25%' : 
+                             bar.classList.contains('progress-40') ? '40%' :
+                             bar.classList.contains('progress-60') ? '60%' :
+                             bar.classList.contains('progress-75') ? '75%' :
+                             bar.classList.contains('progress-90') ? '90%' : '0%';
+                
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.transition = 'width 1.5s ease-out';
+                    bar.style.width = width;
+                }, 500);
+            });
+        }
+
+        // Trigger progress bar animation when pipeline section comes into view
+        const pipelineObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateProgressBars();
+                    pipelineObserver.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const pipelineSection = document.getElementById('pipeline');
+        if (pipelineSection) {
+            pipelineObserver.observe(pipelineSection);
+        }
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Close any open modals or menus
+                console.log('Escape key pressed');
+            }
+            
+            if (e.key === 'Enter' && e.target.classList.contains('btn-primary', 'btn-secondary')) {
+                e.target.click();
+            }
+        });
+
+        // Performance optimization: Debounce scroll events
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Apply debouncing to scroll handler
+        const debouncedScrollHandler = debounce(function() {
+            const header = document.getElementById('header');
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        }, 10);
+
+        // Replace the original scroll event listener
+        window.removeEventListener('scroll', function() {}); // Remove previous listeners
+        window.addEventListener('scroll', debouncedScrollHandler);
+
+        // Analytics placeholder (for future implementation)
+        function trackEvent(eventName, properties = {}) {
+            console.log(`Event: ${eventName}`, properties);
+            // Real analytics implementation would go here
+        }
+
+        // Track button clicks
+        document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+            btn.addEventListener('click', function() {
+                trackEvent('button_click', {
+                    button_text: this.textContent.trim(),
+                    button_type: this.classList.contains('btn-primary') ? 'primary' : 'secondary'
+                });
+            });
+        });
+
+        console.log('Turing Biosciences website loaded successfully!');
+    </script>
+</body>
+</html>
+                        

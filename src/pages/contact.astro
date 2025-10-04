@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Contact">
+  <section class="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2>Contact</h2>
+        <p>Get in touch about partnerships, research collaborations, or product inquiries.</p>
+      </div>
+
+      <div class="contact-grid">
+        <form id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+              <p class="error" id="error-name" role="alert"></p>
+            </div>
+            <div class="form-field">
+              <label for="email">Work email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+              <p class="error" id="error-email" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="company">Company / Institution</label>
+              <input id="company" name="company" type="text" autocomplete="organization" />
+            </div>
+            <div class="form-field">
+              <label for="topic">Topic</label>
+              <select id="topic" name="topic" required>
+                <option value="">Select a topic</option>
+                <option value="partnership">Partnership</option>
+                <option value="research">Research Collaboration</option>
+                <option value="product">Product Inquiry</option>
+                <option value="media">Media</option>
+                <option value="other">Other</option>
+              </select>
+              <p class="error" id="error-topic" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+            <p class="error" id="error-message" role="alert"></p>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Send message</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <aside class="contact-info">
+          <div class="card">
+            <h4>General</h4>
+            <p><strong>Email:</strong> hello@turingbio.example</p>
+            <p><strong>Support:</strong> support@turingbio.example</p>
+          </div>
+          <div class="card">
+            <h4>Headquarters</h4>
+            <p>123 Innovation Drive<br/>San Francisco, CA 94107</p>
+          </div>
+          <div class="card">
+            <h4>Business hours</h4>
+            <p>Mon–Fri · 9:00am–6:00pm PT</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact .contact-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+
+  form { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-field { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+  label { font-weight: 600; color: var(--text-primary); }
+  input, select, textarea { border: 1px solid var(--border-color); border-radius: var(--radius); padding: 0.75rem 0.875rem; background: var(--bg-primary); color: var(--text-primary); }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+  .error { color: #b91c1c; min-height: 1.25rem; font-size: 0.875rem; }
+  .form-actions { display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem; }
+  .form-status { color: var(--text-secondary); }
+
+  .contact-info .card { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1rem; }
+  .contact-info .card + .card { margin-top: 1rem; }
+
+  @media (max-width: 1024px) { .contact .contact-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const statusEl = document.getElementById('form-status');
+
+  function setError(id, message) {
+    const el = document.getElementById('error-' + id);
+    if (el) el.textContent = message || '';
+  }
+
+  function validate() {
+    let valid = true;
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const topic = document.getElementById('topic');
+    const message = document.getElementById('message');
+
+    setError('name');
+    setError('email');
+    setError('topic');
+    setError('message');
+
+    if (!name.value.trim()) { setError('name', 'Please enter your name'); valid = false; }
+    const emailVal = email.value.trim();
+    if (!emailVal) { setError('email', 'Please enter your email'); valid = false; }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) { setError('email', 'Enter a valid email'); valid = false; }
+    if (!topic.value) { setError('topic', 'Please select a topic'); valid = false; }
+    if (!message.value.trim()) { setError('message', 'Please enter a message'); valid = false; }
+
+    return valid;
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = '';
+
+    if (!validate()) {
+      statusEl.textContent = 'Please fix the errors above.';
+      return;
+    }
+
+    // Simulate async submission. Integrate with a backend or service later.
+    try {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      await new Promise(r => setTimeout(r, 800));
+      form.reset();
+      statusEl.textContent = 'Thanks! Your message has been sent.';
+    } catch (err) {
+      statusEl.textContent = 'Something went wrong. Please try again later.';
+    } finally {
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send message';
+    }
+  });
+</script>
+
