@@ -3,394 +3,745 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Turing Biosciences - Reprogramming Immunity with Metabolites">
-  <div class="loading-overlay" id="loading-overlay">
-    <div class="loading-spinner"></div>
-  </div>
-
-  <button class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to top">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
-
-  <header id="header">
-    <nav class="container">
-      <a href="#" class="logo" aria-label="Turing Biosciences Home">
-        <svg width="320" height="70" viewBox="0 0 320 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="15" cy="20" r="4" fill="#6794EF"/>
-          <circle cx="30" cy="14" r="4" fill="#6794EF"/>
-          <circle cx="25" cy="35" r="4" fill="#6794EF"/>
-          <circle cx="10" cy="42" r="4" fill="#6794EF"/>
-          <line x1="15" y1="20" x2="30" y2="14" stroke="#6794EF" stroke-width="2.5"/>
-          <line x1="15" y1="20" x2="25" y2="35" stroke="#6794EF" stroke-width="2.5"/>
-          <line x1="15" y1="20" x2="10" y2="42" stroke="#6794EF" stroke-width="2.5"/>
-          <line x1="30" y1="14" x2="25" y2="35" stroke="#6794EF" stroke-width="2.5"/>
-          <text x="55" y="32" font-family="Inter,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="28" font-weight="600" fill="#6794EF">TURING</text>
-          <text x="55" y="50" font-family="Inter,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="400" fill="#9CA3AF" letter-spacing="1px">BIOSCIENCES</text>
-        </svg>
-      </a>
-      <ul class="nav-links">
-        <li><a href="#validation">Validation</a></li>
-        <li><a href="#pipeline">Pipeline</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <div class="mobile-menu-btn" id="mobile-menu-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </nav>
-  </header>
-
-  <main>
     <section class="hero">
-      <div class="container">
-        <div class="hero-grid">
-          <div class="hero-content">
-            <h1>Reprogramming the Immune System with <span class="accent">Metabolites</span></h1>
-            <h2>Computational Biology for Disease Discovery</h2>
-            <p>Unlike traditional genomics approaches that target single data types, Nexus™ integrates genomics, proteomics, metabolomics, and microbiome data to discover immunometabolic intervention points.</p>
-            <p>Our multi-omics platform identifies metabolites that reprogram immune function across diseases - transforming therapeutic discovery from years and billions to weeks and thousands. We already have a 68-asset pipeline, two FDA designation approvals, and active licensing negotiations.</p>
-            <div class="hero-actions">
-              <a href="#validation" class="btn-primary">View Validated Results</a>
-              <a href="#pipeline" class="btn-secondary">Platform Pipeline</a>
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>Reprogramming the Immune System with <span class="accent">Metabolites</span></h1>
+                    <h2>Computational Biology for Disease Discovery</h2>
+                    <p>Unlike traditional genomics approaches that target single data types, Nexus™ integrates genomics, proteomics, metabolomics, and microbiome data to discover immunometabolic intervention points.</p>
+                    <p>Our multi-omics platform identifies metabolites that reprogram immune function across diseases - transforming therapeutic discovery from years and billions to weeks and thousands. We already have a 68-asset pipeline, two FDA designation approvals, and active licensing negotiations.</p>
+                    <div class="hero-actions">
+                        <a href="#validation" class="btn-primary">View Validated Results</a>
+                        <a href="#pipeline" class="btn-secondary">Platform Pipeline</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="data-visualization">
+                        <div class="data-point">
+                            <span class="number">68</span>
+                            <span class="label">Assets Discovered</span>
+                        </div>
+                        <div class="data-point">
+                            <span class="number">2</span>
+                            <span class="label">FDA Approvals</span>
+                        </div>
+                        <div class="data-point">
+                            <span class="number">10</span>
+                            <span class="label">Day Discovery</span>
+                        </div>
+                    </div>
+                    <img src="./image.png" alt="Multi-Omics Platform Visualization" style="width: 100%; height: 350px; object-fit: cover; border-radius: 8px;" />
+                </div>
             </div>
-          </div>
-          <div class="hero-visual">
-            <div class="data-visualization">
-              <div class="data-point">
-                <span class="number">68</span>
-                <span class="label">Assets Discovered</span>
-              </div>
-              <div class="data-point">
-                <span class="number">2</span>
-                <span class="label">FDA Approvals</span>
-              </div>
-              <div class="data-point">
-                <span class="number">10</span>
-                <span class="label">Day Discovery</span>
-              </div>
-            </div>
-            <img src="./image.png" alt="Multi-Omics Platform Visualization" style="width: 100%; height: 350px; object-fit: cover; border-radius: 8px;" />
-          </div>
         </div>
-      </div>
     </section>
 
     <section class="validation fade-in-on-scroll" id="validation">
-      <div class="container">
-        <div class="section-header">
-          <h2>Validated Predictive Accuracy</h2>
-          <p>Double-blind validation results demonstrate consistent high-accuracy predictions across multiple rare disease indications. Our confidence in efficacy and safety stems from discovering these targets already working safely in humans through observational studies and retrospective analysis of existing therapeutics.</p>
-        </div>
-        
-        <div class="validation-grid" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: start;">
-          <!-- Statistical Validation Metrics -->
-          <div class="statistical-validation">
-            <h3 style="color: #1e293b; font-size: 1.4rem; font-weight: 600; margin-bottom: 2rem; text-align: center;">Statistical Validation</h3>
-            <p style="color: #64748b; font-size: 0.9rem; text-align: center; margin-bottom: 2rem;">Examples of double-blind validation & test in confusion matrices</p>
+        <div class="container">
+            <div class="section-header">
+                <h2>Validated Predictive Accuracy</h2>
+                <p>Double-blind validation results demonstrate consistent high-accuracy predictions across multiple rare disease indications. Our confidence in efficacy and safety stems from discovering these targets already working safely in humans through observational studies and retrospective analysis of existing therapeutics.</p>
+            </div>
             
-            <div class="metrics-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
-              <!-- NEC Metrics -->
-              <div class="metric-table">
-                <h4 style="font-size: 0.9rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; text-align: center;">Necrotizing Enterocolitis (NEC)</h4>
-                <div class="metric-row">
-                  <span class="metric-label">Precision (PPV)</span>
-                  <div class="metric-bar">
-                    <div class="metric-fill" style="width: 95%; background: linear-gradient(90deg, #10b981, #059669);"></div>
-                    <span class="metric-value">95%</span>
-                  </div>
-                </div>
-                <div class="metric-row">
-                  <span class="metric-label">Sensitivity</span>
-                  <div class="metric-bar">
-                    <div class="metric-fill" style="width: 92%; background: linear-gradient(90deg, #3b82f6, #1d4ed8);"></div>
-                    <span class="metric-value">92%</span>
-                  </div>
-                </div>
-                <div class="metric-row">
-                  <span class="metric-label">Specificity</span>
-                  <div class="metric-bar">
-                    <div class="metric-fill" style="width: 88%; background: linear-gradient(90deg, #8b5cf6, #7c3aed);"></div>
-                    <span class="metric-value">88%</span>
-                  </div>
-                </div>
-                <div class="metric-row">
-                  <span class="metric-label">F1-Score</span>
-                  <div class="metric-bar">
-                    <div class="metric-fill" style="width: 93%; background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
-                    <span class="metric-value">93%</span>
-                  </div>
-                </div>
-              </div>
+            <div class="validation-grid" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: start;">
+                <!-- Statistical Validation Metrics -->
+                <div class="statistical-validation">
+                    <h3 style="color: #1e293b; font-size: 1.4rem; font-weight: 600; margin-bottom: 2rem; text-align: center;">Statistical Validation</h3>
+                    <p style="color: #64748b; font-size: 0.9rem; text-align: center; margin-bottom: 2rem;">Examples of double-blind validation & test in confusion matrices</p>
+                    
+                    <div class="metrics-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                        <!-- NEC Metrics -->
+                        <div class="metric-table">
+                            <h4 style="font-size: 0.9rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; text-align: center;">Necrotizing Enterocolitis (NEC)</h4>
+                            <div class="metric-row">
+                                <span class="metric-label">Precision (PPV)</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 100%; background: #1e40af;"></div>
+                                    <span class="metric-value">100%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">F1</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 97.56%; background: #1e40af;"></div>
+                                    <span class="metric-value">97.56%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Accuracy</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 97.50%; background: #1e40af;"></div>
+                                    <span class="metric-value">97.50%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Specificity</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 100%; background: #3b82f6;"></div>
+                                    <span class="metric-value">100%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Sensitivity</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 95.24%; background: #3b82f6;"></div>
+                                    <span class="metric-value">95.24%</span>
+                                </div>
+                            </div>
+                        </div>
 
-              <!-- IBD Metrics -->
-              <div class="metric-table">
-                <h4 style="font-size: 0.9rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; text-align: center;">Inflammatory Bowel Disease (IBD)</h4>
-                <div class="metric-row">
-                  <span class="metric-label">Precision (PPV)</span>
-                  <div class="metric-bar">
-                    <div class="metric-fill" style="width: 89%; background: linear-gradient(90deg, #10b981, #059669);"></div>
-                    <span class="metric-value">89%</span>
-                  </div>
-                </div>
-                <div class="metric-row">
-                  <span class="metric-label">Sensitivity</span>
-                  <div class="metric-bar">
-                    <div class="metric-fill" style="width: 91%; background: linear-gradient(90deg, #3b82f6, #1d4ed8);"></div>
-                    <span class="metric-value">91%</span>
-                  </div>
-                </div>
-                <div class="metric-row">
-                  <span class="metric-label">Specificity</span>
-                  <div class="metric-bar">
-                    <div class="metric-fill" style="width: 94%; background: linear-gradient(90deg, #8b5cf6, #7c3aed);"></div>
-                    <span class="metric-value">94%</span>
-                  </div>
-                </div>
-                <div class="metric-row">
-                  <span class="metric-label">F1-Score</span>
-                  <div class="metric-bar">
-                    <div class="metric-fill" style="width: 90%; background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
-                    <span class="metric-value">90%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                        <!-- PA Metrics -->
+                        <div class="metric-table">
+                            <h4 style="font-size: 0.9rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; text-align: center;">Propionic Aciduria (PA)</h4>
+                            <div class="metric-row">
+                                <span class="metric-label">Precision (PPV)</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 100%; background: #1e40af;"></div>
+                                    <span class="metric-value">100%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">F1</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 100%; background: #1e40af;"></div>
+                                    <span class="metric-value">100%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Accuracy</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 100%; background: #1e40af;"></div>
+                                    <span class="metric-value">100%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Specificity</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 100%; background: #3b82f6;"></div>
+                                    <span class="metric-value">100%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Sensitivity</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 100%; background: #3b82f6;"></div>
+                                    <span class="metric-value">100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-          <!-- Accuracy Showcase -->
-          <div class="accuracy-showcase">
-            <div class="accuracy-title">Disease Prediction Accuracy</div>
-            <div class="disease-accuracy">
-              <div class="disease-name">Necrotizing Enterocolitis</div>
-              <div class="accuracy-bar">
-                <div class="bar-fill" style="width: 95%;"></div>
-                <span class="accuracy-percent">95%</span>
-              </div>
+                    <div class="metrics-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <!-- CTLN1 Metrics -->
+                        <div class="metric-table">
+                            <h4 style="font-size: 0.9rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; text-align: center;">Citrullinemia Type 1 (CTLN1)</h4>
+                            <div class="metric-row">
+                                <span class="metric-label">Precision (PPV)</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 100%; background: #1e40af;"></div>
+                                    <span class="metric-value">100%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">F1</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 98.55%; background: #1e40af;"></div>
+                                    <span class="metric-value">98.55%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Accuracy</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 97.40%; background: #1e40af;"></div>
+                                    <span class="metric-value">97.40%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Specificity</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 100%; background: #3b82f6;"></div>
+                                    <span class="metric-value">100%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Sensitivity</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 97.14%; background: #3b82f6;"></div>
+                                    <span class="metric-value">97.14%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- sJIA Metrics -->
+                        <div class="metric-table">
+                            <h4 style="font-size: 0.9rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; text-align: center;">Systemic Juvenile Arthritis (sJIA)</h4>
+                            <div class="metric-row">
+                                <span class="metric-label">Precision (PPV)</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 91.67%; background: #1e40af;"></div>
+                                    <span class="metric-value">91.67%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">F1</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 95.65%; background: #1e40af;"></div>
+                                    <span class="metric-value">95.65%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Accuracy</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 95.56%; background: #1e40af;"></div>
+                                    <span class="metric-value">95.56%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Specificity</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 91.30%; background: #3b82f6;"></div>
+                                    <span class="metric-value">91.30%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Sensitivity</span>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 100%; background: #3b82f6;"></div>
+                                    <span class="metric-value">100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AUROC Results -->
+                <div class="accuracy-showcase">
+                    <div class="accuracy-title">AUROC Validation Results</div>
+                    <div class="disease-accuracy">
+                        <div class="disease-name">Necrotizing Enterocolitis (NEC)</div>
+                        <div class="accuracy-bar">
+                            <div class="bar-fill" style="width: 100%"></div>
+                            <span class="accuracy-percent">100%</span>
+                        </div>
+                    </div>
+                    <div class="disease-accuracy">
+                        <div class="disease-name">Propionic Aciduria (PA)</div>
+                        <div class="accuracy-bar">
+                            <div class="bar-fill" style="width: 100%"></div>
+                            <span class="accuracy-percent">100%</span>
+                        </div>
+                    </div>
+                    <div class="disease-accuracy">
+                        <div class="disease-name">Citrullinemia Type 1 (CTLN1)</div>
+                        <div class="accuracy-bar">
+                            <div class="bar-fill" style="width: 92.32%"></div>
+                            <span class="accuracy-percent">92.32%</span>
+                        </div>
+                    </div>
+                    <div class="disease-accuracy">
+                        <div class="disease-name">Maple Syrup Urine Disease (MSUD)</div>
+                        <div class="accuracy-bar">
+                            <div class="bar-fill" style="width: 99.5%"></div>
+                            <span class="accuracy-percent">99.5%</span>
+                        </div>
+                    </div>
+                    <div class="disease-accuracy">
+                        <div class="disease-name">Phenylketonuria (PKU)</div>
+                        <div class="accuracy-bar">
+                            <div class="bar-fill" style="width: 95.52%"></div>
+                            <span class="accuracy-percent">95.52%</span>
+                        </div>
+                    </div>
+                    <div class="disease-accuracy">
+                        <div class="disease-name">Systemic Juvenile Arthritis (sJIA)</div>
+                        <div class="accuracy-bar">
+                            <div class="bar-fill" style="width: 97.82%"></div>
+                            <span class="accuracy-percent">97.82%</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1.5rem; text-align: center; font-style: italic; color: rgba(255, 255, 255, 0.8); font-size: 0.9rem;">
+                        Turing, RPDD Application, FDA OOPD 2024
+                    </div>
+                </div>
             </div>
-            <div class="disease-accuracy">
-              <div class="disease-name">Inflammatory Bowel Disease</div>
-              <div class="accuracy-bar">
-                <div class="bar-fill" style="width: 89%;"></div>
-                <span class="accuracy-percent">89%</span>
-              </div>
-            </div>
-            <div class="disease-accuracy">
-              <div class="disease-name">Crohn's Disease</div>
-              <div class="accuracy-bar">
-                <div class="bar-fill" style="width: 87%;"></div>
-                <span class="accuracy-percent">87%</span>
-              </div>
-            </div>
-            <div class="disease-accuracy">
-              <div class="disease-name">Ulcerative Colitis</div>
-              <div class="accuracy-bar">
-                <div class="bar-fill" style="width: 91%;"></div>
-                <span class="accuracy-percent">91%</span>
-              </div>
-            </div>
-          </div>
         </div>
-
-        <!-- Validation Metrics Grid -->
-        <div class="validation-metrics">
-          <div class="metric-card">
-            <span class="metric-number">95%</span>
-            <span class="metric-label">Average Precision</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-number">92%</span>
-            <span class="metric-label">Average Sensitivity</span>
-          </div>
-          <div class="metric-card">
-            <span class="metric-number">91%</span>
-            <span class="metric-label">Average F1-Score</span>
-          </div>
-        </div>
-      </div>
     </section>
 
     <section class="problem-solution fade-in-on-scroll">
-      <div class="container">
-        <div class="section-header">
-          <h2>The Problem & Our Solution</h2>
-          <p>Traditional drug discovery is slow, expensive, and often fails. Our multi-omics approach changes everything.</p>
-        </div>
-        
-        <div class="comparison-grid">
-          <div class="comparison-side traditional">
-            <h3 class="comparison-title">Traditional Approach</h3>
-            <div class="stat-boxes">
-              <div class="stat-box">
-                <span class="stat-value">10-15</span>
-                <span class="stat-description">Years to Market</span>
-              </div>
-              <div class="stat-box">
-                <span class="stat-value">$2.6B</span>
-                <span class="stat-description">Average Cost</span>
-              </div>
-              <div class="stat-box">
-                <span class="stat-value">90%</span>
-                <span class="stat-description">Failure Rate</span>
-              </div>
-              <div class="stat-box">
-                <span class="stat-value">Single</span>
-                <span class="stat-description">Data Type Focus</span>
-              </div>
+        <div class="container">
+            <div class="section-header">
+                <h2>From Single Assets to System-Wide Solutions</h2>
+                <p>Nexus™: First platform to systematically reprogram immunity across thousands of diseases</p>
             </div>
-          </div>
-          
-          <div class="comparison-side turing">
-            <h3 class="comparison-title">Turing Biosciences</h3>
-            <div class="stat-boxes">
-              <div class="stat-box">
-                <span class="stat-value">10</span>
-                <span class="stat-description">Days to Discovery</span>
-              </div>
-              <div class="stat-box">
-                <span class="stat-value">$10K</span>
-                <span class="stat-description">Per Asset</span>
-              </div>
-              <div class="stat-box">
-                <span class="stat-value">95%</span>
-                <span class="stat-description">Success Rate</span>
-              </div>
-              <div class="stat-box">
-                <span class="stat-value">Multi-Omics</span>
-                <span class="stat-description">Integration</span>
-              </div>
+            
+            <div class="comparison-grid">
+                <div class="comparison-side traditional">
+                    <div class="comparison-title">Individual Drugs</div>
+                    <div class="stat-boxes">
+                        <div class="stat-box">
+                            <span class="stat-value">One Disease</span>
+                            <span class="stat-description">limited market, narrow focus</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value">Start from Scratch</span>
+                            <span class="stat-description">reinvent for each indication</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value">Human Medicine Only</span>
+                            <span class="stat-description">species-specific approach</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value">10+ Years, $3.5B</span>
+                            <span class="stat-description">unsustainable economics</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison-side turing">
+                    <div class="comparison-title">Platform Approach</div>
+                    <div class="stat-boxes">
+                        <div class="stat-box">
+                            <span class="stat-value">Many Diseases</span>
+                            <span class="stat-description">systematic discovery across conditions</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value">Build on Success</span>
+                            <span class="stat-description">compound learning effects</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value">All Species</span>
+                            <span class="stat-description">universal biological principles</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-value">Weeks, $3M</span>
+                            <span class="stat-description">scalable platform economics</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            
+            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(37, 99, 235, 0.1); border-radius: 12px;">
+                <p style="font-size: 1.2rem; color: #2563eb; font-weight: 500;">We own the infrastructure that makes biology programmable</p>
+            </div>
         </div>
-      </div>
     </section>
 
     <section class="pipeline fade-in-on-scroll" id="pipeline">
-      <div class="container">
-        <div class="section-header">
-          <h2>Our Pipeline</h2>
-          <p>68 validated assets across multiple therapeutic areas, with 2 FDA designations already approved.</p>
+        <div class="container">
+            <div class="section-header">
+                <h2>Available Therapeutic & Diagnostic Assets by Disease</h2>
+                <p>68 therapeutic and diagnostic assets across 7 major disease categories</p>
+            </div>
+            
+            <div class="pipeline-table">
+                <div class="pipeline-title-header">
+                    <h3>Therapeutic & Diagnostic Assets</h3>
+                    <p>Real-time development status across disease categories</p>
+                </div>
+                <div class="pipeline-row column-header">
+                    <div>INDICATION</div>
+                    <div class="progress-col">DEVELOPMENT PROGRESS</div>
+                    <div>FDA STATUS</div>
+                    <div>THERAPEUTIC</div>
+                    <div>DIAGNOSTIC</div>
+                </div>
+
+                <!-- Neonatal/Pediatric -->
+                <div class="pipeline-row category-header">
+                    <div>NEONATAL/PEDIATRIC</div>
+                </div>
+                
+                <div class="pipeline-row">
+                    <div class="indication-name">Necrotizing Enterocolitis (NEC)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-75"></div>
+                    </div>
+                    <div class="status-badge status-approved">RPDD Approved</div>
+                    <div class="status-badge status-invitro">Pre-IND</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Extremely Early-Onset Type 1 Diabetes (EXE-T1D)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-40"></div>
+                    </div>
+                    <div class="status-badge status-pending">In Vitro</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Late Onset Sepsis (LOS)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <!-- Women's Health -->
+                <div class="pipeline-row category-header">
+                    <div>WOMEN'S HEALTH</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Spontaneous Preterm Birth CST-1</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Spontaneous Preterm Birth CST-2</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Spontaneous Preterm Birth CST-3</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Spontaneous Preterm Birth CST-4a</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Spontaneous Preterm Birth CST-4b</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Spontaneous Preterm Birth CST-5</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <!-- Metabolic Disorders -->
+                <div class="pipeline-row category-header">
+                    <div>METABOLIC DISORDERS</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Maple Syrup Urine Disease (MSUD)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div class="status-badge status-pending">RPDD Pending</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Phenylketonuria (PKU)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div class="status-badge status-pending">RPDD Pending</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Ornithine Transcarbamylase (OTC) Deficiency</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div class="status-badge status-pending">RPDD Pending</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Methylmalonic Acidemia (MMA)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div class="status-badge status-pending">RPDD Pending</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Citrullinemia (CTLN-1)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div class="status-badge status-pending">RPDD Pending</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Glutaric Aciduria Type 1</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div class="status-badge status-pending">RPDD Pending</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Argininemia</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div class="status-badge status-pending">RPDD Pending</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Propionic Acidemia (PA)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div class="status-badge status-pending">RPDD Pending</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Adrenoleukodystrophy (ALD)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div class="status-badge status-pending">RPDD Pending</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">3-MCC Deficiency</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div class="status-badge status-pending">RPDD Pending</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <!-- Infectious Disease -->
+                <div class="pipeline-row category-header">
+                    <div>INFECTIOUS DISEASE</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Chikungunya Virus</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Chagas Disease</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">African Sleeping Sickness</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Leprosy</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">River Blindness</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">COVID-19</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <!-- Inflammatory/Autoimmune -->
+                <div class="pipeline-row category-header">
+                    <div>INFLAMMATORY/AUTOIMMUNE</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Systemic Juvenile Idiopathic Arthritis (sJIA)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-40"></div>
+                    </div>
+                    <div class="status-badge status-approved">RPDD Approved</div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Crohn's Disease</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Ulcerative Colitis</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <!-- Oncology -->
+                <div class="pipeline-row category-header">
+                    <div>ONCOLOGY</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Colorectal Cancer</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Gastric Cancer</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <!-- Neurological -->
+                <div class="pipeline-row category-header">
+                    <div>NEUROLOGICAL</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Multisystem Proteinopathy 1 (MSP-1)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Childhood Disintegrative Disorder (CDD)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Parkinson's Disease*</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Autism Spectrum Disorder*</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div class="status-badge status-approved">Available</div>
+                </div>
+
+                <!-- Other -->
+                <div class="pipeline-row category-header">
+                    <div>OTHER</div>
+                </div>
+
+                <div class="pipeline-row">
+                    <div class="indication-name">Longevity/Anti-Aging</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-25"></div>
+                    </div>
+                    <div></div>
+                    <div class="status-badge status-available">Available</div>
+                    <div></div>
+                </div>
+            </div>
+
+            <div class="pipeline-summary">
+                <h4>Platform Summary</h4>
+                <p>68 therapeutic assets discovered across 7 major disease categories with 2 FDA rare pediatric disease designations approved</p>
+            </div>
         </div>
-
-        <div class="pipeline-table">
-          <div class="pipeline-title-header">
-            <h3>Rare Disease Therapeutics Pipeline</h3>
-            <p>Validated through multi-omics analysis and clinical data integration</p>
-          </div>
-          
-          <div class="column-header" style="display: grid; grid-template-columns: 280px 1fr 120px 100px 100px; gap: 1rem; padding: 1rem 1.5rem; background: rgba(59, 130, 246, 0.05);">
-            <div>Indication</div>
-            <div class="progress-col">Development Progress</div>
-            <div>Status</div>
-            <div>Phase</div>
-            <div>Priority</div>
-          </div>
-
-          <div class="category-header">Gastroenterology</div>
-          
-          <div class="pipeline-row">
-            <div class="indication-name">Necrotizing Enterocolitis (NEC)</div>
-            <div class="progress-bar-container">
-              <div class="progress-bar progress-90"></div>
-            </div>
-            <div class="status-badge status-approved">FDA Approved</div>
-            <div>Phase III</div>
-            <div>High</div>
-          </div>
-
-          <div class="pipeline-row">
-            <div class="indication-name">Inflammatory Bowel Disease (IBD)</div>
-            <div class="progress-bar-container">
-              <div class="progress-bar progress-75"></div>
-            </div>
-            <div class="status-badge status-pending">In Review</div>
-            <div>Phase II</div>
-            <div>High</div>
-          </div>
-
-          <div class="pipeline-row">
-            <div class="indication-name">Crohn's Disease</div>
-            <div class="progress-bar-container">
-              <div class="progress-bar progress-60"></div>
-            </div>
-            <div class="status-badge status-invitro">In Vitro</div>
-            <div>Phase I</div>
-            <div>Medium</div>
-          </div>
-
-          <div class="pipeline-row">
-            <div class="indication-name">Ulcerative Colitis</div>
-            <div class="progress-bar-container">
-              <div class="progress-bar progress-60"></div>
-            </div>
-            <div class="status-badge status-invitro">In Vitro</div>
-            <div>Phase I</div>
-            <div>Medium</div>
-          </div>
-
-          <div class="category-header">Immunology</div>
-
-          <div class="pipeline-row">
-            <div class="indication-name">Rheumatoid Arthritis</div>
-            <div class="progress-bar-container">
-              <div class="progress-bar progress-40"></div>
-            </div>
-            <div class="status-badge status-available">Available</div>
-            <div>Preclinical</div>
-            <div>Medium</div>
-          </div>
-
-          <div class="pipeline-row">
-            <div class="indication-name">Multiple Sclerosis</div>
-            <div class="progress-bar-container">
-              <div class="progress-bar progress-25"></div>
-            </div>
-            <div class="status-badge status-available">Available</div>
-            <div>Preclinical</div>
-            <div>Low</div>
-          </div>
-        </div>
-
-        <div class="pipeline-summary">
-          <h4>Pipeline Summary</h4>
-          <p>68 total assets discovered through our multi-omics platform, with 2 FDA designations approved and multiple assets in active development across rare disease indications.</p>
-        </div>
-      </div>
     </section>
-  </main>
-
-  <footer id="contact">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <h3>Turing Biosciences</h3>
-          <p>Reprogramming the immune system with metabolites through computational biology and multi-omics integration. Transforming therapeutic discovery from years to weeks.</p>
-        </div>
-        <div class="footer-section">
-          <h4>Platform</h4>
-          <a href="#validation">Validation</a>
-          <a href="#pipeline">Pipeline</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div class="footer-section">
-          <h4>Resources</h4>
-          <a href="#">Documentation</a>
-          <a href="#">Research Papers</a>
-          <a href="#">Case Studies</a>
-        </div>
-        <div class="footer-section">
-          <h4>Contact</h4>
-          <a href="mailto:info@turingbiosciences.com">info@turingbiosciences.com</a>
-          <a href="#">+1 (555) 123-4567</a>
-          <a href="#">San Francisco, CA</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 Turing Biosciences. All rights reserved. | Nexus™ is a trademark of Turing Biosciences.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="/src/scripts/enhanced.js"></script>
 </BaseLayout>
