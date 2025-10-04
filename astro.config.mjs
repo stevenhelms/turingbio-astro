@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://eluellenml.github.io',
+  site: 'https://stevenhelms.github.io',
   base: '/turing-site',
   output: 'static'
 });
