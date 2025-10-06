@@ -84,13 +84,13 @@ const { title } = Astro.props;
                 </div>
                 <div class="footer-section">
                     <h4>Company</h4>
-                    <a href="#" onclick="showComingSoon('About Us')">About Us</a>
-                    <a href="#" onclick="showComingSoon('News')">News & Updates</a>
+                    <a href="#" class="coming-soon-link" data-feature="About Us">About Us</a>
+                    <a href="#" class="coming-soon-link" data-feature="News">News & Updates</a>
                 </div>
                 <div class="footer-section">
                     <h4>Contact</h4>
                     <a href="mailto:info@turingbiosciences.com">info@turingbiosciences.com</a>
-                    <a href="#" onclick="showComingSoon('Technical Support')">Support</a>
+                    <a href="#" class="coming-soon-link" data-feature="Technical Support">Support</a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -181,6 +181,18 @@ const { title } = Astro.props;
         function showComingSoon(feature) {
             alert(`${feature} coming soon! We're working hard to bring you this feature.`);
         }
+
+        // Make showComingSoon available globally
+        window.showComingSoon = showComingSoon;
+
+        // Add event listeners for coming soon links
+        document.querySelectorAll('.coming-soon-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const feature = this.getAttribute('data-feature');
+                showComingSoon(feature);
+            });
+        });
 
         // Add some interactivity to metric cards
         document.querySelectorAll('.metric-card').forEach(card => {
