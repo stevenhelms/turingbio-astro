@@ -688,34 +688,6 @@ nav {
     opacity: 0.8;
 }
 
-/* Mission Section */
-.mission {
-    padding: 8rem 0;
-    background: white;
-    position: relative;
-}
-
-.mission-content {
-    width: 80%;
-    margin: 0 auto;
-}
-
-.mission-text {
-    font-size: 1.25rem;
-    line-height: 1.7;
-    color: #666;
-    width: 100%;
-}
-
-.mission-text p {
-    margin-bottom: 2rem;
-    margin-top: 0;
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: #1a1a1a;
-}
-
-
 /* Enhanced Pipeline Section */
 .pipeline {
     padding: 8rem 0;
@@ -1045,6 +1017,33 @@ footer {
 .nav-links a:focus {
     outline: 2px solid #2563eb;
     outline-offset: 2px;
+}
+
+/* Mission Section Styles */
+.mission {
+    padding: 8rem 0 !important;
+    background: white !important;
+    position: relative !important;
+}
+
+.mission-content {
+    width: 80% !important;
+    margin: 0 auto !important;
+}
+
+.mission-text {
+    /* font-size: 1.25rem !important; */
+    line-height: 1.7 !important;
+    color: #666 !important;
+    width: 100% !important;
+}
+
+.mission-text p {
+    margin-bottom: 1.2rem !important;
+    margin-top: 0 !important;
+    /* font-size: 1.4rem !important; */
+    /* font-weight: 500 !important; */
+    /* color: #1a1a1a !important; */
 }
 
 /* Reduced motion for users who prefer it */
