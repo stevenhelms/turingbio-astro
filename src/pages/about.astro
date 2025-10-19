@@ -1,0 +1,230 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About - Turing Biosciences">
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>About <span class="accent">Turing Biosciences</span></h1>
+                <h2>Revolutionizing Disease Discovery Through Multi-Omics Integration</h2>
+                <p>We are pioneering the future of computational biology by developing the first platform to systematically reprogram immunity across thousands of diseases using metabolite-based interventions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section fade-in-on-scroll">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Mission</h2>
+                <p>To transform therapeutic discovery from years and billions to weeks and thousands through systematic multi-omics integration and metabolite-based interventions.</p>
+            </div>
+            
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <h3>Platform Approach</h3>
+                    <p>Unlike traditional single-asset drug development, our Nexus™ platform systematically discovers therapeutic interventions across multiple disease categories.</p>
+                </div>
+                <div class="mission-card">
+                    <h3>Multi-Omics Integration</h3>
+                    <p>We integrate genomics, proteomics, metabolomics, and microbiome data to identify immunometabolic intervention points that traditional approaches miss.</p>
+                </div>
+                <div class="mission-card">
+                    <h3>Validated Results</h3>
+                    <p>Our platform has already delivered 68 therapeutic assets with 2 FDA rare pediatric disease designations approved and active licensing negotiations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section fade-in-on-scroll">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Technology</h2>
+                <p>Nexus™ represents a paradigm shift in how we approach disease discovery and therapeutic development.</p>
+            </div>
+            
+            <div class="tech-features">
+                <div class="tech-feature">
+                    <h3>Systematic Discovery</h3>
+                    <p>Our platform enables systematic discovery across thousands of diseases rather than focusing on individual conditions.</p>
+                </div>
+                <div class="tech-feature">
+                    <h3>Universal Principles</h3>
+                    <p>We leverage universal biological principles that work across all species, not just human medicine.</p>
+                </div>
+                <div class="tech-feature">
+                    <h3>Scalable Economics</h3>
+                    <p>Our approach reduces development time from 10+ years to weeks and costs from $3.5B to $3M per asset.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .hero {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        padding-top: 8rem;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .hero-content h1 {
+        font-size: 4rem;
+        font-weight: 300;
+        line-height: 1.1;
+        margin-bottom: 2rem;
+        color: #1a1a1a;
+        letter-spacing: -0.03em;
+    }
+
+    .hero-content .accent {
+        color: #2563eb;
+        font-weight: 400;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero-content h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2563eb;
+        margin-bottom: 2rem;
+        line-height: 1.4;
+    }
+
+    .hero-content p {
+        font-size: 1.25rem;
+        color: #666;
+        margin-bottom: 2rem;
+        line-height: 1.7;
+    }
+
+    .content-section {
+        padding: 6rem 0;
+        background: white;
+    }
+
+    .content-section:nth-child(even) {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+        font-size: 2.5rem;
+        font-weight: 300;
+        color: #1a1a1a;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.02em;
+    }
+
+    .section-header p {
+        font-size: 1.2rem;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.7;
+    }
+
+    .mission-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .mission-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+    }
+
+    .mission-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .mission-card h3 {
+        color: #2563eb;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .mission-card p {
+        color: #666;
+        line-height: 1.6;
+    }
+
+    .tech-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .tech-feature {
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .tech-feature h3 {
+        color: #1a1a1a;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .tech-feature p {
+        color: #666;
+        line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-content h1 {
+            font-size: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2rem;
+        }
+        
+        .mission-grid,
+        .tech-features {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

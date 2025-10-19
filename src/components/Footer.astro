@@ -1,0 +1,116 @@
+---
+// Footer component for Turing Biosciences
+---
+
+<footer id="contact">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Turing Biosciences</h3>
+                <p>Computational biology platform for systematic disease discovery and therapeutic development. Transforming how we understand and treat immune-mediated diseases through multi-omics integration and metabolite-based interventions.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Platform</h4>
+                <a href="/#validation">Validation Results</a>
+                <a href="/#pipeline">Pipeline Overview</a>
+                <a href="#" onclick="scrollToTop()">Back to Top</a>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="#" class="coming-soon-link" data-feature="About Us">About Us</a>
+                <a href="#" class="coming-soon-link" data-feature="News">News & Updates</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <a href="mailto:info@turingbiosciences.com">info@turingbiosciences.com</a>
+                <a href="#" class="coming-soon-link" data-feature="Technical Support">Support</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Turing Biosciences. All rights reserved. | Nexus™ is a trademark of Turing Biosciences.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Coming soon modal for incomplete links
+    function showComingSoon(feature: string) {
+        alert(`${feature} coming soon! We're working hard to bring you this feature.`);
+    }
+
+    // Make showComingSoon available globally
+    window.showComingSoon = showComingSoon;
+
+    // Add event listeners for coming soon links
+    document.querySelectorAll('.coming-soon-link').forEach(link => {
+        link.addEventListener('click', function(this: HTMLElement, e: Event) {
+            e.preventDefault();
+            const feature = this.getAttribute('data-feature');
+            if (feature) {
+                showComingSoon(feature);
+            }
+        });
+    });
+</script>
+
+<style>
+    /* Footer */
+    footer {
+        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        color: #999;
+        padding: 4rem 0 2rem;
+        position: relative;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 4rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-brand h3 {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+        line-height: 1.7;
+    }
+
+    .footer-section h4 {
+        color: white;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+
+    .footer-section a {
+        color: #999;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 0.8rem;
+        transition: all 0.2s ease;
+    }
+
+    .footer-section a:hover {
+        color: #2563eb;
+        transform: translateX(5px);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid #333;
+        padding-top: 2rem;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .footer-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+    }
+</style>

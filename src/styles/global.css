@@ -688,6 +688,34 @@ nav {
     opacity: 0.8;
 }
 
+/* Mission Section */
+.mission {
+    padding: 8rem 0;
+    background: white;
+    position: relative;
+}
+
+.mission-content {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.mission-text {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: #666;
+    width: 100%;
+}
+
+.mission-text p {
+    margin-bottom: 2rem;
+    margin-top: 0;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
+
 /* Enhanced Pipeline Section */
 .pipeline {
     padding: 8rem 0;
